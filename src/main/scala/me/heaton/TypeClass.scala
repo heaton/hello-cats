@@ -2,7 +2,7 @@ package me.heaton
 
 object TypeClass {
 
-  def combineAll[A](list: List[A])(implicit A: Monoid[A]): A = list.foldRight(A.empty)(A.combine)
+  def combineAll[A: Monoid](list: List[A]): A = list.foldRight(implicitly[Monoid[A]].empty)(implicitly[Monoid[A]].combine)
 
   trait Monoid[A] {
     def empty: A

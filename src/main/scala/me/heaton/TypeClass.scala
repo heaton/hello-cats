@@ -2,12 +2,16 @@ package me.heaton
 
 object TypeClass {
 
-  def combineAll[A: Monoid](list: List[A]): A = list.foldRight(implicitly[Monoid[A]].empty)(implicitly[Monoid[A]].combine)
+  def combineAll[A: Monoid](list: List[A]): A = list.foldRight(Monoid[A].empty)(Monoid[A].combine)
 
   trait Monoid[A] {
     def empty: A
 
     def combine(x: A, y: A): A
+  }
+
+  object Monoid {
+    def apply[A : Monoid]: Monoid[A] = implicitly[Monoid[A]]
   }
 
   implicit val intAdditionMonoid: Monoid[Int] = new Monoid[Int] {

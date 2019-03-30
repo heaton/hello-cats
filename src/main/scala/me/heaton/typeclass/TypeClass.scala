@@ -1,4 +1,4 @@
-package me.heaton
+package me.heaton.typeclass
 
 object TypeClass {
 

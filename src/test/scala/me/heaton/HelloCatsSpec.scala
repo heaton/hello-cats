@@ -129,6 +129,7 @@ class HelloCatsSpec extends WordSpec with Matchers {
 
       "Traverse Concept" should {
         import java.sql.Connection
+        import cats.implicits._
 
         val username: Option[String] = Some("username")
         val password: Option[String] = Some("password")
@@ -150,6 +151,13 @@ class HelloCatsSpec extends WordSpec with Matchers {
 
         "traverse a list" in {
           traverse(List(1, 2, 3))(i => Some(i): Option[Int]) shouldEqual Some(List(1, 2, 3))
+        }
+
+        "traverse and sequence" in {
+          val list = List(Some(1), Some(2), None)
+          list.traverse(identity) shouldEqual list.sequence
+          val f: Option[Int] => Option[Int] = _.orElse(Some(0))
+          list.traverse(f) shouldEqual list.map(f).sequence
         }
       }
     }

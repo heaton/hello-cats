@@ -1,6 +1,6 @@
-ThisBuild / scalaVersion     := "2.12.8"
-ThisBuild / version          := "0.1.0-SNAPSHOT"
-ThisBuild / organization     := "me.heaton"
+ThisBuild / scalaVersion := "2.12.8"
+ThisBuild / version := "0.1.0-SNAPSHOT"
+ThisBuild / organization := "me.heaton"
 ThisBuild / organizationName := "heaton"
 
 lazy val root = (project in file("."))
@@ -12,7 +12,11 @@ lazy val root = (project in file("."))
     )
   )
 
-scalacOptions += "-Ypartial-unification"
+scalacOptions ++= Seq(
+  "-language:higherKinds",
+  "-language:postfixOps",
+  "-Ypartial-unification"
+)
 
 resolvers += Resolver.sonatypeRepo("releases")
 
